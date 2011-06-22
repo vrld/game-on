@@ -75,7 +75,7 @@ function love.mousepressed(x,y,btn)
 
 	for knoll,pos in pairs(knolls) do
 		local d = math.sqrt((x-pos[1])^2 + (y-pos[2])^2)
-		if d < 60 then
+		if d < 70 then
 			knolls[knoll] = nil
 			newKapow('POW',x,y-20)
 			score = score + 10
