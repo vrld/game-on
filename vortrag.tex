@@ -1,0 +1,162 @@
+\documentclass{beamer}
+%\usepackage{ngerman}
+\usepackage{inputenc}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+
+\definecolor{hilight}{rgb}{.1,.3,.4}
+\definecolor{lolight}{rgb}{.7,.7,.7}
+\definecolor{url}{rgb}{.2,.5,.7}
+
+\setbeamercovered{transparent=0}
+\newcommand{\sframe}[1]{\frame{\huge \begin{center} #1 \end{center}}}
+\newcommand{\tframe}[2]{\frame{\frametitle{#1}#2}}
+\newcommand{\cframe}[2]{\frame{\frametitle{#1}\large \begin{center} #2 \end{center}}}
+\newcommand{\hilight}[1]{\textbf{\color{hilight}{#1}}}
+\newcommand{\lolight}[1]{\textit{\color{lolight}{#1}}}
+\newcommand{\code}[1]{\texttt{#1}}
+\renewcommand{\url}[1]{\texttt{\color{url}{#1}}}
+
+\newcommand{\sprod}[2]{\langle #1, #2 \rangle}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\beamertemplatenavigationsymbolsempty
+
+\title{Game On}
+\subtitle{Spiele programmieren mit LÖVE}
+\author{vrld}
+\date{GPN 11}
+
+\mode<presentation>{
+	\useoutertheme{shortinfoline}
+	\useinnertheme{rounded}
+}
+
+\begin{document}
+
+\sframe{
+	\Huge \hilight{Game On} \\[.4cm]
+	\normalsize
+	Spiele programieren mit LÖVE \\[.3cm]
+	\lolight{GPN 11 // vrld}
+}
+
+\begin{frame}[fragile]
+	\frametitle{Hello, LÖVE}
+	\begin{lstlisting}
+		function love.load()
+		    love.graphics.print("Hello, LÖVE", 10, 10)
+		end
+	\end{lstlisting}
+\end{frame}
+
+\sframe{
+	\includegraphics[width=6cm]{lua-logo-nolabel.png}
+}
+
+\tframe{Lua}{
+	\begin{itemize}
+		\item KISS Prinzip
+		\item Tables als universelle Datenstruktur
+		\item Prozedual, Objekt-Orientier, Funktional, \(\dots\)
+		\item Programming in Lua: \url{www.lua.org/pil}
+		\item Referenz: \url{www.lua.org/manual/5.1}
+		\item Lua Users: \url{lua-users.org/wiki}
+		\item Lua Missions: \url{github.com/kikito/lua\_missions}
+	\end{itemize}
+}
+
+\sframe{
+	\includegraphics[width=6cm]{love.png}\\
+	\small (Baby don't hurt me)
+}
+
+\tframe{LÖVE}{
+	\begin{itemize}
+		\item Open Source 2D Game Framework
+		\item Lua Scripting
+		\item Windows, OSX, Linux (+ Dingoo, Caanoo, OpenPandora)
+		\item \url{www.love2d.org}
+		\item \url{www.love2d.org/wiki} - Einstiegshilfe
+		\item \url{www.love2d.org/forums} - Ausführliche Hilfe
+		\item \url{\#love@irc.freenode.net} - Schnelle Hilfe
+	\end{itemize}
+}
+
+\tframe{Running stuff}{
+	Running stuff:
+	\begin{itemize}
+		\item Drag and Drop
+		\item \code{love /path/to/game/folder}
+		\item \code{love /path/to/game.love}
+	\end{itemize}
+	\vspace{.3cm}
+
+	.love:
+	\begin{itemize}
+		\item Umbenannte .zip Datei
+		\item \code{main.lua} im top-level
+		\item Alles andere egal
+	\end{itemize}
+}
+
+\cframe{Gameloop}{
+	\includegraphics[width=10cm]{gameloop.png}
+}
+
+\begin{frame}[fragile]
+	\frametitle{Hamsterball}
+	\small
+	\begin{lstlisting}
+function love.load()
+    hamster = {
+        img = love.graphics.newImage('hamster.png'),
+        x = 400, y = 300
+    }
+end
+
+function love.update(dt)
+    if love.keyboard.isDown('up') then
+        hamster.y = hamster.y - dt * 50
+    elseif love.keyboard.isDown('down') then
+        hamster.y = hamster.y + dt * 50
+    end
+    ...
+end
+
+function love.draw()
+    love.graphics.draw(hamster.img, hamster.x, hamster.y)
+end
+	\end{lstlisting}
+\end{frame}
+
+\cframe{Libraries}{
+	\begin{itemize}
+		\item \hilight{An} \hilight{A}nimation \hilight{L}ibrary \textit{(von bartbes)}
+			\begin{itemize}
+				\item Sprite-Animationen
+				\item \url{love2d.org/wiki/AnAL}
+			\end{itemize}
+		\item \hilight{S}imple \hilight{E}ducative \hilight{C}lass \hilight{S}ystem \textit{(von bartbes)}
+			\begin{itemize}
+				\item Einfaches Klassen-system
+				\item \url{love2d.org/wiki/SECS}
+			\end{itemize}
+		\item MiddleClass und MiddleClass Extras \textit{(von kikito)}
+			\begin{itemize}
+				\item Klassen-system mit vielen Features
+				\item \url{github.com/kikito/MiddleClass}
+			\end{itemize}
+		\item \hilight{H}elper \hilight{U}tilities for \hilight{M}assive \hilight{P}rogress \textit{(von mir)}
+			\begin{itemize}
+				\item Gamestates, Timer, Vektoren, Klassen-System, Kamera, Ringbuffer
+				\item \url{vrld.github.com/hump}
+			\end{itemize}
+		\item HardonCollider \textit{(von mir)}
+			\begin{itemize}
+				\item Kollisionserkennung
+				\item \url{vrld.github.com/HardonCollider}
+			\end{itemize}
+	\end{itemize}
+}
+
+\end{document}
