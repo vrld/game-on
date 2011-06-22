@@ -81,8 +81,10 @@ function animation:update(dt)
 				self.direction = -1
 				self.position = self.position - 1
 			end
-		elseif self.position < 1 and self.mode == 3 then
-			self.direction = 1
+		elseif self.position < 1 then
+			if self.mode == 3 then
+				self.direction = 1
+			end
 			self.position = self.position + 1
 		end
 	end
@@ -128,7 +130,7 @@ end
 --- Reset
 -- Go back to the first frame.
 function animation:reset()
-	self:seek(0)
+	self:seek(1)
 end
 
 --- Seek to a frame
