@@ -6,6 +6,7 @@
 
 \definecolor{hilight}{rgb}{.1,.3,.4}
 \definecolor{lolight}{rgb}{.7,.7,.7}
+\definecolor{ultralolight}{rgb}{.85,.85,.85}
 \definecolor{url}{rgb}{.2,.5,.7}
 
 \setbeamercovered{transparent=0}
@@ -40,24 +41,12 @@
 	\lolight{GPN 11 // vrld}
 }
 
-\begin{frame}[fragile]
-	\frametitle{Hello, LÖVE}
-	\begin{lstlisting}
-		function love.load()
-		    love.graphics.print("Hello, LÖVE", 10, 10)
-		end
-	\end{lstlisting}
-\end{frame}
-
 \sframe{
 	\includegraphics[width=6cm]{lua-logo-nolabel.png}
 }
 
 \tframe{Lua}{
 	\begin{itemize}
-		\item KISS Prinzip
-		\item Tables als universelle Datenstruktur
-		\item Prozedual, Objekt-Orientier, Funktional, \(\dots\)
 		\item Programming in Lua: \url{www.lua.org/pil}
 		\item Referenz: \url{www.lua.org/manual/5.1}
 		\item Lua Users: \url{lua-users.org/wiki}
@@ -66,8 +55,12 @@
 }
 
 \sframe{
-	\includegraphics[width=6cm]{love.png}\\
-	\small (Baby don't hurt me)
+	\color{ultralolight}{
+		\small what is\hspace{6cm}$\,$ \\[.2cm]
+		\includegraphics[width=6cm]{love.png}\\
+		\vspace{-.5cm}
+		\small \hspace{4cm}... baby don't hurt me
+	}
 }
 
 \tframe{LÖVE}{
@@ -82,16 +75,46 @@
 	\end{itemize}
 }
 
-\tframe{Running stuff}{
+\tframe{Batteries}{
+	Wichtig:
+	\begin{itemize}
+		\item \code{love.graphics}
+		\item \code{love.audio}
+	\end{itemize}
+	\vspace{.3cm}
+
+	Auch da:
+	\begin{itemize}
+		\item \code{love.keyboard}, \code{love.mouse}, \code{love.joystick}
+		\item \code{love.physics}
+		\item \code{love.filesystem}
+		\item \code{love.thread}
+		\item \code{love.timer}
+		\item LuaSocket
+	\end{itemize}
+}
+
+\begin{frame}[fragile]
+	\frametitle{Hello, LÖVE}
+	\color{hilight}{main.lua}\color{black}
+	\begin{lstlisting}
+		function love.draw()
+		    love.graphics.print("Hello, LÖVE", 10, 10)
+		end
+	\end{lstlisting}
+\end{frame}
+
+\tframe{Magnets, ... ?}{
 	Running stuff:
 	\begin{itemize}
 		\item Drag and Drop
 		\item \code{love /path/to/game/folder}
 		\item \code{love /path/to/game.love}
+		\item \code{open -a love /path/to/game[.love]}
 	\end{itemize}
 	\vspace{.3cm}
 
-	.love:
+	Distributing stuff:
 	\begin{itemize}
 		\item Umbenannte .zip Datei
 		\item \code{main.lua} im top-level
@@ -116,9 +139,9 @@ end
 
 function love.update(dt)
     if love.keyboard.isDown('up') then
-        hamster.y = hamster.y - dt * 50
+        hamster.y = hamster.y - dt * 100
     elseif love.keyboard.isDown('down') then
-        hamster.y = hamster.y + dt * 50
+        hamster.y = hamster.y + dt * 100
     end
     ...
 end
@@ -133,13 +156,13 @@ end
 	\begin{itemize}
 		\item \hilight{An} \hilight{A}nimation \hilight{L}ibrary \textit{(von bartbes)}
 			\begin{itemize}
-				\item Sprite-Animationen
+				\item (Sprite-)Animationen
 				\item \url{love2d.org/wiki/AnAL}
 			\end{itemize}
-		\item \hilight{S}imple \hilight{E}ducative \hilight{C}lass \hilight{S}ystem \textit{(von bartbes)}
+		\item LUBE \textit{(von bartbes)}
 			\begin{itemize}
-				\item Einfaches Klassen-system
-				\item \url{love2d.org/wiki/SECS}
+				\item LuaSocket wrapper
+				\item \url{love2d.org/wiki/LUBE}
 			\end{itemize}
 		\item MiddleClass und MiddleClass Extras \textit{(von kikito)}
 			\begin{itemize}
