@@ -87,15 +87,16 @@
 	\begin{itemize}
 		\item \code{love.graphics}
 		\item \code{love.audio}
+		\item \code{love.keyboard}, \code{love.mouse}, \code{love.joystick}
 	\end{itemize}
 	\vspace{.3cm}
 
 	Auch da:
 	\begin{itemize}
-		\item \code{love.keyboard}, \code{love.mouse}, \code{love.joystick}
 		\item \code{love.physics}
 		\item \code{love.filesystem}
 		\item \code{love.thread}
+		\item \code{love.sound}
 		\item \code{love.timer}
 		\item LuaSocket
 	\end{itemize}
@@ -151,7 +152,7 @@
 
 		!\KW{love}! : !\KW{\$(game)}!.love
 
-		!\KW{\$(game.love)}! : !\KW{\$(sources)}! !\KW{\$(res)}!
+		!\KW{\$(game).love}! : !\KW{\$(sources)}! !\KW{\$(res)}!
 		    !\KW{\$(zip)}! !\KW{\$(game)}!!\LIT{.love}! !\KW{\$(sources)}! !\KW{\$(res)}!
 
 		!\KW{clean}! :
