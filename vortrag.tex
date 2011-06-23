@@ -8,6 +8,9 @@
 \definecolor{lolight}{rgb}{.7,.7,.7}
 \definecolor{ultralolight}{rgb}{.85,.85,.85}
 \definecolor{url}{rgb}{.2,.5,.7}
+\definecolor{keyword1}{rgb}{.6,.2,.3}
+\definecolor{keyword2}{rgb}{.6,.6,.2}
+\definecolor{literal}{rgb}{.2,.4,.5}
 
 \setbeamercovered{transparent=0}
 \newcommand{\sframe}[1]{\frame{\huge \begin{center} #1 \end{center}}}
@@ -17,6 +20,10 @@
 \newcommand{\lolight}[1]{\textit{\color{lolight}{#1}}}
 \newcommand{\code}[1]{\texttt{#1}}
 \renewcommand{\url}[1]{\texttt{\color{url}{#1}}}
+
+\newcommand{\KW}[1]{\color{keyword1}{#1}}
+\newcommand{\IKW}[1]{\color{keyword2}{#1}}
+\newcommand{\LIT}[1]{\color{literal}{#1}}
 
 \newcommand{\sprod}[2]{\langle #1, #2 \rangle}
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -42,19 +49,6 @@
 }
 
 \sframe{
-	\includegraphics[width=6cm]{lua-logo-nolabel.png}
-}
-
-\tframe{Lua}{
-	\begin{itemize}
-		\item Programming in Lua: \url{www.lua.org/pil}
-		\item Referenz: \url{www.lua.org/manual/5.1}
-		\item Lua Users: \url{lua-users.org/wiki}
-		\item Lua Missions: \url{github.com/kikito/lua\_missions}
-	\end{itemize}
-}
-
-\sframe{
 	\color{ultralolight}{
 		\small what is\hspace{6cm}$\,$ \\[.2cm]
 		\includegraphics[width=6cm]{love.png}\\
@@ -72,6 +66,19 @@
 		\item \url{www.love2d.org/wiki} - Einstiegshilfe
 		\item \url{www.love2d.org/forums} - Ausführliche Hilfe
 		\item \url{\#love@irc.freenode.net} - Schnelle Hilfe
+	\end{itemize}
+}
+
+\sframe{
+	\includegraphics[width=6cm]{lua-logo-nolabel.png}
+}
+
+\tframe{Lua}{
+	\begin{itemize}
+		\item Programming in Lua: \url{www.lua.org/pil}
+		\item Referenz: \url{www.lua.org/manual/5.1}
+		\item Lua Users: \url{lua-users.org/wiki}
+		\item Lua Missions: \url{github.com/kikito/lua\_missions}
 	\end{itemize}
 }
 
@@ -97,10 +104,10 @@
 \begin{frame}[fragile]
 	\frametitle{Hello, LÖVE}
 	\color{hilight}{main.lua}\color{black}
-	\begin{lstlisting}
-		function love.draw()
-		    love.graphics.print("Hello, LÖVE", 10, 10)
-		end
+	\begin{lstlisting}[escapechar=!]
+		!\KW{function}! love.draw()
+		    love.graphics.print(!\LIT{"Hello, LÖVE"}!, !\LIT{10}!, !\LIT{10}!)
+		!\KW{end}!
 	\end{lstlisting}
 \end{frame}
 
@@ -122,33 +129,67 @@
 	\end{itemize}
 }
 
+\begin{frame}[fragile]
+	\frametitle{make love \hspace{2cm}\small \color{lolight}\code{make: Nothing to be done for `love'.}\color{black}}
+	\scriptsize
+	\begin{lstlisting}[escapechar=!]
+		!\KW{love}! = /path/to/love
+		!\KW{zip}! = /usr/bin/zip
+		!\KW{luac}! = /usr/bin/luac
+
+		!\KW{game}! = AWESOMEGAME
+		!\KW{sources}! = *.lua */*.lua
+		!\KW{res}! = img/*.png snd/*.ogg
+
+		!\IKW{.PHONY}! : run love clean
+
+		!\KW{run}! : test
+		    !\KW{\$(love)}! .
+
+		!\KW{test}! : !\KW{\$(sources)}!
+		    !\KW{\$(luac)}! !\LIT{-p}! !\KW{\$(sources)}!
+
+		!\KW{love}! : !\KW{\$(game)}!.love
+
+		!\KW{\$(game.love)}! : !\KW{\$(sources)}! !\KW{\$(res)}!
+		    !\KW{\$(zip)}! !\KW{\$(game)}!!\LIT{.love}! !\KW{\$(sources)}! !\KW{\$(res)}!
+
+		!\KW{clean}! :
+		    !\LIT{rm}! !\KW{\$(game)}!!\LIT{.love}!
+	\end{lstlisting}
+\end{frame}
+
 \cframe{Gameloop}{
 	\includegraphics[width=10cm]{gameloop.png}
 }
 
 \begin{frame}[fragile]
 	\frametitle{Hamsterball}
-	\small
-	\begin{lstlisting}
-function love.load()
+	\scriptsize
+	\begin{lstlisting}[escapechar=!]
+!\KW{function}! love.load()
     hamster = {
-        img = love.graphics.newImage('hamster.png'),
-        x = 400, y = 300
+        img = love.graphics.newImage(!\LIT{'hamster.png'}!),
+        x = !\LIT{400}!, y = !\LIT{300}!
     }
-end
+!\KW{end}!
 
-function love.update(dt)
-    if love.keyboard.isDown('up') then
-        hamster.y = hamster.y - dt * 100
-    elseif love.keyboard.isDown('down') then
-        hamster.y = hamster.y + dt * 100
-    end
-    ...
-end
+!\KW{function}! love.update(dt)
+    !\IKW{if}! love.keyboard.isDown(!\LIT{'up'}!) !\IKW{then}!
+        hamster.y = hamster.y - dt * !\LIT{100}!
+    !\IKW{elseif}! love.keyboard.isDown(!\LIT{'down'}!) !\IKW{then}!
+        hamster.y = hamster.y + dt * !\LIT{100}!
+    !\IKW{end}!
+    !\IKW{if}! love.keyboard.isDown(!\LIT{'left'}!) !\IKW{then}!
+        hamster.x = hamster.x - dt * !\LIT{100}!
+    !\IKW{elseif}! love.keyboard.isDown(!\LIT{'right'}!) !\IKW{then}!
+        hamster.x = hamster.x + dt * !\LIT{100}!
+    !\IKW{end}!
+!\KW{end}!
 
-function love.draw()
+!\KW{function}! love.draw()
     love.graphics.draw(hamster.img, hamster.x, hamster.y)
-end
+!\KW{end}!
 	\end{lstlisting}
 \end{frame}
 
@@ -180,6 +221,10 @@ end
 				\item \url{vrld.github.com/HardonCollider}
 			\end{itemize}
 	\end{itemize}
+}
+
+\sframe{
+	\Huge \hilight{Code On!} \\[.4cm]
 }
 
 \end{document}
